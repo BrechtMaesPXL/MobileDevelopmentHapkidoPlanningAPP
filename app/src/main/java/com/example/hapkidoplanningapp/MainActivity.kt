@@ -11,9 +11,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_HapkidoPlanningApp); // Add this line
         setContentView(R.layout.activity_main)
         loadFragment(ActivatieFragment())
-        bottomNav = findViewById(R.id.bottomNav) as BottomNavigationView
+        bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)!!
         bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.home -> {
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(UserFragment())
                     true
                 }
-                else -> false // Added else branch to make 'when' expression exhaustive
+                else -> false // Toegevoegd else tak om de 'when' expressie volledig te maken
             }
         }
     }
