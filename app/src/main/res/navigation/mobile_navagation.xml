@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mobile_navagation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navagation"
+    app:startDestination="@id/activatieFragment">
 
+    <fragment
+        android:id="@+id/activatieFragment"
+        android:name="com.example.hapkidoplanningapp.ActivatieFragment"
+        android:label="fragment_activatie"
+        tools:layout="@layout/fragment_activatie" >
+        <action
+            android:id="@+id/action_activatieFragment_to_fragment_add_activetie"
+            app:destination="@id/fragment_add_activetie" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_add_activetie"
+        android:name="com.example.hapkidoplanningapp.fragment_add_activetie"
+        android:label="fragment_add_activetie"
+        tools:layout="@layout/fragment_add_activetie" />
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.example.hapkidoplanningapp.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" />
 </navigation>

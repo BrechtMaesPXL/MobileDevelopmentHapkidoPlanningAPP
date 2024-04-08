@@ -1,10 +1,14 @@
 package com.example.hapkidoplanningapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,8 +38,20 @@ class ActivatieFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_activatie, container, false)
+        val view = inflater.inflate(R.layout.fragment_activatie, container, false)
+
+        // Find the FloatingActionButton within the inflated layout
+        val addActivetieButton = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
+
+        // Set OnClickListener to the FloatingActionButton
+        addActivetieButton.setOnClickListener {
+            Log.w("myapp", "going into listener")
+            findNavController().navigate(R.id.fragment_add_activetie)
+        }
+
+        return view
     }
+
 
     companion object {
         /**

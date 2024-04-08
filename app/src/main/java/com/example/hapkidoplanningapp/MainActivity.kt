@@ -3,6 +3,7 @@ package com.example.hapkidoplanningapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.hapkidoplanningapp.domain.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +12,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.Theme_HapkidoPlanningApp); // Add this line
+
+
+
+        setTheme(R.style.Theme_HapkidoPlanningApp) // Add this line
         setContentView(R.layout.activity_main)
         loadFragment(ActivatieFragment())
         bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)!!
