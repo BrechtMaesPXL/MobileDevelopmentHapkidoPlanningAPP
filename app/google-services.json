@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "675825452508",
+    "project_id": "hapkidoplanningapp",
+    "storage_bucket": "hapkidoplanningapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675825452508:android:9bee7daefb4f5fff987b19",
+        "android_client_info": {
+          "package_name": "com.example.hapkidoplanningapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMCU-VIxFdr5JBXKb9-HtlJ3JxTmYOQkQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
