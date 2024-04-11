@@ -3,7 +3,6 @@ package com.example.hapkidoplanningapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.hapkidoplanningapp.domain.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -17,12 +16,12 @@ class MainActivity : AppCompatActivity() {
 
         setTheme(R.style.Theme_HapkidoPlanningApp) // Add this line
         setContentView(R.layout.activity_main)
-        loadFragment(ActivatieFragment())
+        loadFragment(fragment_activaties())
         bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)!!
         bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.home -> {
-                    loadFragment(ActivatieFragment())
+                    loadFragment(fragment_activaties())
                     true
                 }
                 R.id.message -> {

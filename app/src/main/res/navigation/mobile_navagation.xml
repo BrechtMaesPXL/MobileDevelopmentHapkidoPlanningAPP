@@ -7,18 +7,22 @@
 
     <fragment
         android:id="@+id/activatieFragment"
-        android:name="com.example.hapkidoplanningapp.ActivatieFragment"
+        android:name="com.example.hapkidoplanningapp.BackscreenFragment"
         android:label="fragment_activatie"
-        tools:layout="@layout/fragment_activatie" >
+        tools:layout="@layout/fragment_backscreen" >
         <action
-            android:id="@+id/action_activatieFragment_to_fragment_add_activetie"
+            android:id="@+id/action_activatieFragment_to_fragment_add_activetie2"
             app:destination="@id/fragment_add_activetie" />
     </fragment>
     <fragment
         android:id="@+id/fragment_add_activetie"
         android:name="com.example.hapkidoplanningapp.fragment_add_activetie"
         android:label="fragment_add_activetie"
-        tools:layout="@layout/fragment_add_activetie" />
+        tools:layout="@layout/fragment_add_activetie" >
+        <action
+            android:id="@+id/action_fragment_add_activetie_to_activatieFragment"
+            app:destination="@id/activatieFragment" />
+    </fragment>
     <fragment
         android:id="@+id/locationFragment"
         android:name="com.example.hapkidoplanningapp.LocationFragment"
