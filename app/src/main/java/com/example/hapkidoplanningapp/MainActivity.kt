@@ -1,6 +1,7 @@
 package com.example.hapkidoplanningapp
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,10 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-        setTheme(R.style.Theme_HapkidoPlanningApp) // Add this line
+        setTheme(R.style.Theme_HapkidoPlanningApp)
         setContentView(R.layout.activity_main)
         loadFragment(fragment_activaties())
         bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)!!
@@ -32,9 +30,23 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(UserFragment())
                     true
                 }
-                else -> false // Toegevoegd else tak om de 'when' expressie volledig te maken
+                else -> false
             }
         }
+    }
+    //TODO: make It work maybe
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.nav_manu, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val visible = when (supportFragmentManager.findFragmentById(R.id.container)) {
+            is fragment_add_activetie -> false
+            else -> true
+        }
+        menu?.setGroupVisible(R.id.manu_group , visible)
+        return super.onPrepareOptionsMenu(menu)
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -43,4 +55,3 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 }
-

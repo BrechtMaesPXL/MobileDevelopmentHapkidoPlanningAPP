@@ -10,13 +10,14 @@ class Activities(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
 
-    var dateActivities: Date,
-    var title: String,
-    var description: String,
+    var dateActivities: Date? = null,
+    var title: String? = null,
+    var description: String? = null,
     var attendees: MutableList<User>? = mutableListOf(),
     var trainer: User? = null,
-    var place: String
+    var place: String? = null
 ) {
+    constructor() : this(null, null, null, null)
 
     fun addAttendee(users: User) {
         attendees?.add(users)

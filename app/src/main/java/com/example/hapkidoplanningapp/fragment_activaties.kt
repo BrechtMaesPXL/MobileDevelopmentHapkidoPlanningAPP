@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.hapkidoplanningapp.domain.Activities
+import com.example.hapkidoplanningapp.service.activatiesService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
@@ -19,54 +23,70 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class fragment_activaties : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    private lateinit var rV: RecyclerView
+    private lateinit var dataList: ArrayList<Activities>
+   //TODO: be a cheapscate and make schure that it only get update when app is opend
+    private lateinit var aS: activatiesService
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Move the initialization of aS to onCreateView to avoid null instance
+        dataList = ArrayList()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         setHasOptionsMenu(true)
+        val view = inflater.inflate(R.layout.fragment_activaties, container, false)
+        rV = view.findViewById(R.id.recyclerView)
 
-        return inflater.inflate(R.layout.fragment_activaties, container, false)
+        aS = activatiesService()
 
-
-
+        return view
     }
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val addActivetieButton = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
 
         addActivetieButton.setOnClickListener {
             Log.w("myapp", "going into listener")
             // Instantiate the fragment
-            val fragment = fragment_add_activetie.newInstance("param1", "param2")
+            val fragment = fragment_add_activetie.newInstance()
 
             // Replace the current fragment with the new fragment
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 setHasOptionsMenu(false)
                 replace(R.id.container, fragment)
-                addToBackStack(null)
+                addToBackStack("Home")
                 commit()
             }
+
         }
 
+        fillRescylerView()
+    }
+
+    private fun fillRescylerView() {
+        aS.getActivaties { activitiesList, exception ->
+            if (exception != null) {
+                Log.e("Fragment", "Error getting activities: ${exception.message}")
+            } else {
+                if (activitiesList != null) {
+                    rV.adapter = activatieRViewHolder(activitiesList)
+                } else {
+                    Log.e("Fragment", "Activities list is null")
+                }
+            }
+        }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ActivatieFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             BackscreenFragment().apply {
