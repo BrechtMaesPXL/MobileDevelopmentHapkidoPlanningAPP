@@ -12,9 +12,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setTheme(R.style.Theme_HapkidoPlanningApp)
+
         setContentView(R.layout.activity_main)
-        loadFragment(fragment_activaties())
+
+        loadFragment(Login())
+
         bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)!!
         bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -34,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    //TODO: make It work maybe
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.nav_manu, menu)
         return true

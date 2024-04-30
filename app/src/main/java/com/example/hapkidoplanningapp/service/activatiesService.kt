@@ -12,6 +12,7 @@ class activatiesService {
 
     val db = Firebase.firestore
 
+
     fun addActivaties( date: Date, title: String, description: String, place: String ) {
         val newActivities = Activities(
             dateActivities = date, // Assuming you want the current date

@@ -5,12 +5,11 @@ import androidx.room.PrimaryKey
 
 @Entity
 class User(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int? = null,
+
     var name: String,
     var password: String,
-    var belt: String,
-    var isTrainer: Boolean
+    var belt: String? = "keub 8",
+    var isTrainer: Boolean? = false
 ) {
 
 }
