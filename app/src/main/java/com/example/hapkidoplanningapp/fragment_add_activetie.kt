@@ -1,7 +1,9 @@
 package com.example.hapkidoplanningapp
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +32,9 @@ class fragment_add_activetie : Fragment() {
     private lateinit var addButton: Button
     private lateinit var calendarView: CalendarView
     private lateinit var aS: activatiesService
+
+    private var navbarProvider: NavbarProvider? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,6 +47,8 @@ class fragment_add_activetie : Fragment() {
 
 
         aS = activatiesService()
+
+        navbarProvider?.getBottomNav()?.visibility = View.GONE
 
         addButton.setOnClickListener {
             val title = editTextTitle.text.toString()
@@ -59,6 +66,13 @@ class fragment_add_activetie : Fragment() {
             activity?.supportFragmentManager?.popBackStack()
 
 
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is NavbarProvider) {
+            navbarProvider = context
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,4 +98,5 @@ class fragment_add_activetie : Fragment() {
                 }
             }
     }
+
 }

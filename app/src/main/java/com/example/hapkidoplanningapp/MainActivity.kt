@@ -2,13 +2,15 @@ package com.example.hapkidoplanningapp
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavbarProvider {
 
-    lateinit var bottomNav : BottomNavigationView
+    lateinit var bottomNavigation : BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,11 +21,11 @@ class MainActivity : AppCompatActivity() {
 
         loadFragment(Login())
 
-        bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)!!
-        bottomNav.setOnItemSelectedListener { menuItem ->
+        bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNav)!!
+        bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.home -> {
-                    loadFragment(fragment_activaties())
+                    loadFragment(Home())
                     true
                 }
                 R.id.message -> {
@@ -37,19 +39,10 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-    }
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.nav_manu, menu)
-        return true
-    }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val visible = when (supportFragmentManager.findFragmentById(R.id.container)) {
-            is fragment_add_activetie -> false
-            else -> true
-        }
-        menu?.setGroupVisible(R.id.manu_group , visible)
-        return super.onPrepareOptionsMenu(menu)
+    }
+    override fun getBottomNav(): BottomNavigationView {
+        return bottomNavigation
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -57,4 +50,6 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.container, fragment)
         transaction.commit()
     }
+
+
 }

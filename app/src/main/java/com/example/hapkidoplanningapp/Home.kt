@@ -6,33 +6,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.example.hapkidoplanningapp.db.LocalDataBase
 import com.example.hapkidoplanningapp.domain.Activities
+import com.example.hapkidoplanningapp.service.MyActivatiesDAO
 import com.example.hapkidoplanningapp.service.activatiesService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [fragment_activaties.newInstance] factory method to
- * create an instance of this fragment.
- */
-class fragment_activaties : Fragment() {
+class Home : Fragment() {
 
     private lateinit var rV: RecyclerView
     private lateinit var dataList: ArrayList<Activities>
    //TODO: be a cheapscate and make schure that it only get update when app is opend
     private lateinit var aS: activatiesService
+    private lateinit var myActivatiesDAO: MyActivatiesDAO
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Move the initialization of aS to onCreateView to avoid null instance
         dataList = ArrayList()
+
+        val db = Room.databaseBuilder(
+            requireContext(),
+            LocalDataBase::class.java, "mudori-localdb"
+        ).build()
+
+        myActivatiesDAO = db.MyActivatiesDAO()
+
+
     }
 
     override fun onCreateView(
@@ -55,11 +60,8 @@ class fragment_activaties : Fragment() {
         val addActivetieButton = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
 
         addActivetieButton.setOnClickListener {
-            Log.w("myapp", "going into listener")
-            // Instantiate the fragment
             val fragment = fragment_add_activetie.newInstance()
 
-            // Replace the current fragment with the new fragment
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 setHasOptionsMenu(false)
                 replace(R.id.container, fragment)
@@ -84,16 +86,8 @@ class fragment_activaties : Fragment() {
                 }
             }
         }
+
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BackscreenFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }
