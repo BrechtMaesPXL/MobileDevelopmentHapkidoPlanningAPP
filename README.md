@@ -8,7 +8,7 @@ Planning APP for mudori hapkido
 + [x] Login Screen
 + [ ] Activatity Screen: maserdetail view
 + [ ] landscape
-+ [ ] Locale DataBank
++ [X] Locale DataBank
 + [ ] Volley ???
 + [ ] make It Beautiful 
 + [ ] Extras... 
