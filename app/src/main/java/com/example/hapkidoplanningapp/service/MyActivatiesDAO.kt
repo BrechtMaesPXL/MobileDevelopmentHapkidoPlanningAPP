@@ -11,7 +11,7 @@ interface MyActivatiesDAO {
     @Query("SELECT * FROM activatie")
     fun getAll(): List<Activities>
     @Insert
-    fun insertAll(vararg activaties: Activities)
+    fun insertAll(vararg  activaties: Activities)
     @Delete
     fun delete(activaites: Activities)
 }

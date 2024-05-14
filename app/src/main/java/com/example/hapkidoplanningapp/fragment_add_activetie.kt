@@ -2,27 +2,17 @@ package com.example.hapkidoplanningapp
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CalendarView
-import android.widget.CheckBox
 import android.widget.EditText
+import androidx.fragment.app.Fragment
 import com.example.hapkidoplanningapp.service.activatiesService
 import java.util.Date
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-/**
- * A simple [Fragment] subclass.
- * Use the [fragment_add_activetie.newInstance] factory method to
- * create an instance of this fragment.
- */
 class fragment_add_activetie : Fragment() {
     private lateinit var editTextTitle: EditText
     private lateinit var editTextDescription: EditText
