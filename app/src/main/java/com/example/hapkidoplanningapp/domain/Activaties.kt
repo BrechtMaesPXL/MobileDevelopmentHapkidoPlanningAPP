@@ -7,15 +7,15 @@ import java.util.Date
 
 @Entity(tableName = "activatie")
 class Activities(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int? = null,
+    var id: Int? = 1,
 
-    var dateActivities: Date,
-    var title: String,
-    var description: String,
+    @PrimaryKey
+    var dateActivities: Date? = Date(),
+    var title: String? = "no title",
+    var description: String? = "no description ",
     var attendees: MutableList<User>? = mutableListOf(),
-    var trainer: User? = null,
-    var place: String
+//    var trainer: User? = User("jhon", "dow"),
+    var place: String? = " no place"
 ) {
 
     fun addAttendee(users: User) {

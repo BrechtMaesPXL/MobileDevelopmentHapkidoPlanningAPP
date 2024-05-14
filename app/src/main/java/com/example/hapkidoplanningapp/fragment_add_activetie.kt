@@ -1,53 +1,68 @@
 package com.example.hapkidoplanningapp
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.CheckBox
+import android.widget.CalendarView
 import android.widget.EditText
+import androidx.fragment.app.Fragment
+import com.example.hapkidoplanningapp.service.activatiesService
+import java.util.Date
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [fragment_add_activetie.newInstance] factory method to
- * create an instance of this fragment.
- */
 class fragment_add_activetie : Fragment() {
     private lateinit var editTextTitle: EditText
-    private lateinit var editTextDate: EditText
     private lateinit var editTextDescription: EditText
-    private lateinit var checkBox: CheckBox
+    private lateinit var editTextPlace: EditText
+
+    //private lateinit var checkBox: CheckBox
     private lateinit var addButton: Button
+    private lateinit var calendarView: CalendarView
+    private lateinit var aS: activatiesService
+
+    private var navbarProvider: NavbarProvider? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize the variables by finding corresponding views
         editTextTitle = view.findViewById(R.id.editTextText)
-        editTextDate = view.findViewById(R.id.editTextDate)
         editTextDescription = view.findViewById(R.id.editTextTextMultiLine2)
-        checkBox = view.findViewById(R.id.checkBox)
+       // checkBox = view.findViewById(R.id.checkBox)
+        editTextPlace = view.findViewById(R.id.PlaceField)
         addButton = view.findViewById(R.id.button2)
+        calendarView = view.findViewById(R.id.calendar)
 
-        // Set OnClickListener for the Button
+
+        aS = activatiesService()
+
+        navbarProvider?.getBottomNav()?.visibility = View.GONE
+
         addButton.setOnClickListener {
-            // Retrieve text from EditText fields
             val title = editTextTitle.text.toString()
-            val date = editTextDate.text.toString()
             val description = editTextDescription.text.toString()
+            val place = editTextPlace.text.toString()
 
-            // Retrieve the checked state of the CheckBox
-            val isChecked = checkBox.isChecked
+            //val isChecked = checkBox.isChecked
+
+            val selectedDate = Date(calendarView.date)
 
 
+            aS.addActivaties(selectedDate, title, description, place)
 
+
+            activity?.supportFragmentManager?.popBackStack()
+
+
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is NavbarProvider) {
+            navbarProvider = context
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,22 +81,12 @@ class fragment_add_activetie : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment fragment_add_activetie.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             fragment_add_activetie().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
                 }
             }
     }
+
 }
