@@ -9,6 +9,6 @@ Planning APP for mudori hapkido
 + [ ] Activatity Screen: maserdetail view
 + [ ] landscape
 + [X] Locale DataBank
-+ [ ] Volley ???
++ [X] (Volley ???) -> Firebase async calls
 + [ ] make It Beautiful 
 + [ ] Extras... 
