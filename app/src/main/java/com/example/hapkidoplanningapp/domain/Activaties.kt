@@ -2,6 +2,7 @@ package com.example.hapkidoplanningapp.domain
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 import java.util.Date
 
 
@@ -16,7 +17,8 @@ class Activities(
     var attendees: MutableList<User>? = mutableListOf(),
 //    var trainer: User? = User("jhon", "dow"),
     var place: String? = " no place"
-) {
+
+) : Serializable {
 
     fun addAttendee(users: User) {
         attendees?.add(users)

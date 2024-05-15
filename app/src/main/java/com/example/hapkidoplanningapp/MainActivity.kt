@@ -16,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
 
+
     //        setContentView(R.layout.activity_main)
 
             // Maak de database
@@ -23,9 +24,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
                 applicationContext,
                 LocalDataBase::class.java, "mudori-localdb"
             ).fallbackToDestructiveMigration().build()
-
-
-
 
 
 

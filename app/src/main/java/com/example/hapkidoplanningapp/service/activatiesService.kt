@@ -6,12 +6,13 @@ import com.example.hapkidoplanningapp.domain.Activities
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.tasks.await
 import java.util.Date
 
 class activatiesService {
 
-    val db = Firebase.firestore
-
+    private val db = Firebase.firestore
+    private val activatieCollection = db.collection("Activaties")
 
     fun addActivaties( date: Date, title: String, description: String, place: String ) {
         val newActivities = Activities(
@@ -21,7 +22,7 @@ class activatiesService {
             place = place
         )
 
-        db.collection("Activaties")
+        activatieCollection
             .add(newActivities)
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
@@ -33,19 +34,22 @@ class activatiesService {
 
 
     }
-    fun delActivaties(activaties: Activities) {
-        db.collection("Activaties")
-            .document(activaties.dateActivities.toString())
-            .delete()
-            .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+    suspend fun delActivaties(activaties: Activities) {
+        val activatieQuery = activatieCollection
+            .whereEqualTo("dateActivities", activaties.dateActivities)
+            .get()
+            .await()
+        if (activatieQuery.documents.isNotEmpty()){
+            for (document in activatieQuery){
+                activatieCollection.document(document.id).delete().await()
             }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error deleting document", e)
-            }
+        } else {
+            throw error("no Activatie by that Name")
+        }
+
     }
     fun getActivaties(completion: (List<Activities>?, Exception?) -> Unit) {
-        db.collection("Activaties")
+        activatieCollection
             .orderBy("dateActivities", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { documents ->

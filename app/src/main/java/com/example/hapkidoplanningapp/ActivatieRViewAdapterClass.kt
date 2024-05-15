@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hapkidoplanningapp.domain.Activities
 import com.example.hapkidoplanningapp.service.MyActivatiesDAO
@@ -21,11 +24,15 @@ import java.util.Locale
 class activatieRViewHolder(
     private val activities: MutableList<Activities>,
     private val dbLocal: dbLocal,
+    private val activity: FragmentActivity?,
+    private val view: Home,
     private val isLocal: Boolean = false,
 ) : RecyclerView.Adapter<activatieRViewHolder.ViewHolderClass>() {
 
     private lateinit var myActivatiesDAO: MyActivatiesDAO
     private lateinit var aS: activatiesService
+
+    private lateinit var mToast: Toast
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
@@ -46,6 +53,17 @@ class activatieRViewHolder(
         val currentItem = activities[position]
         holder.rvTitle.text = currentItem.title
         holder.rvDate.text = currentItem.dateActivities?.let { formatDate(it) }
+
+        holder.rvCard.setOnClickListener {
+            val fragment = DetailActivatie.newInstance(currentItem)
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.container, fragment)
+                addToBackStack("Home")
+                commit()
+            }
+        }
+
+
         if (isLocal) {
             holder.rvDelButton.setVisibility(View.GONE);
             holder.rvAddButton.setImageResource(R.drawable.baseline_delete_outline_24)
@@ -69,13 +87,20 @@ class activatieRViewHolder(
             try {
                 if (isLocal){
                     dbLocal.getdb().MyActivatiesDAO().delete(activity)
+                    view.showToast("successful delete ${activity.title} to attending activaties")
+
                 } else {
                     dbLocal.getdb().MyActivatiesDAO().insertAll(activity)
+                    view.showToast("successful added ${activity.title} to attending activaties")
+
                 }
                 // Update the UI on the main thread if needed
                 updateUI()
+                view.updateRV()
             } catch (e: Exception) {
                 Log.e("InsertActivity", "Error inserting activity: ${e.message}")
+                view.showToast("Error inserting activity: ${e.message}")
+
             }
         }
     }
@@ -83,9 +108,15 @@ class activatieRViewHolder(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 aS.delActivaties(activity)
+                view.showToast("successfully del ${activity.title}")
+
                 updateUI()
+                view.updateRV()
+
+
             } catch (e: Exception) {
                 Log.e("DeleteActivity", "Error deleting activity: ${e.message}")
+                view.showToast("Error deleting activity: ${e.message}")
             }
         }
     }
@@ -96,11 +127,13 @@ class activatieRViewHolder(
         val rvDate: TextView = itemView.findViewById(R.id.date)
         val rvAddButton: FloatingActionButton = itemView.findViewById(R.id.addMyActivitieButton)
         val rvDelButton: FloatingActionButton = itemView.findViewById(R.id.delMyActivitieButton)
+        val rvCard: ConstraintLayout = itemView.findViewById(R.id.rvCard)
     }
     //TODO: find better place
     private fun formatDate(date: Date): String {
         val dateFormat = SimpleDateFormat("dd-MM-yy HH:mm", Locale.getDefault())
         return dateFormat.format(date)
     }
+
 
 }

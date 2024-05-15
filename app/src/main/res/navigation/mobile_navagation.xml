@@ -3,29 +3,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navagation"
-    app:startDestination="@id/activatieFragment">
+    app:startDestination="@id/backscreenFragment">
+
 
     <fragment
-        android:id="@+id/activatieFragment"
-        android:name="com.example.hapkidoplanningapp.BackscreenFragment"
-        android:label="fragment_activatie"
-        tools:layout="@layout/fragment_backscreen" >
+        android:id="@+id/login"
+        android:name="com.example.hapkidoplanningapp.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_activatieFragment_to_fragment_add_activetie2"
-            app:destination="@id/fragment_add_activetie" />
+            android:id="@+id/action_login_to_home3"
+            app:destination="@id/home3" />
     </fragment>
     <fragment
         android:id="@+id/fragment_add_activetie"
         android:name="com.example.hapkidoplanningapp.fragment_add_activetie"
         android:label="fragment_add_activetie"
-        tools:layout="@layout/fragment_add_activetie" >
+        tools:layout="@layout/fragment_add_activetie" />
+    <fragment
+        android:id="@+id/home3"
+        android:name="com.example.hapkidoplanningapp.Home"
+        android:label="Home" >
         <action
-            android:id="@+id/action_fragment_add_activetie_to_activatieFragment"
-            app:destination="@id/activatieFragment" />
+            android:id="@+id/action_home3_to_fragment_add_activetie"
+            app:destination="@id/fragment_add_activetie" />
+        <action
+            android:id="@+id/action_home3_to_detailActivatie2"
+            app:destination="@id/detailActivatie2" />
     </fragment>
     <fragment
-        android:id="@+id/locationFragment"
-        android:name="com.example.hapkidoplanningapp.LocationFragment"
-        android:label="fragment_location"
-        tools:layout="@layout/fragment_location" />
+        android:id="@+id/detailActivatie2"
+        android:name="com.example.hapkidoplanningapp.DetailActivatie"
+        android:label="fragment_detail_activatie"
+        tools:layout="@layout/fragment_detail_activatie" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.hapkidoplanningapp.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/backscreenFragment"
+        android:name="com.example.hapkidoplanningapp.BackscreenFragment"
+        android:label="fragment_backscreen"
+        tools:layout="@layout/fragment_backscreen" >
+        <action
+            android:id="@+id/action_backscreenFragment_to_login"
+            app:destination="@id/login" />
+    </fragment>
 </navigation>

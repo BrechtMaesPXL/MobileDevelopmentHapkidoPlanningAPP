@@ -1,6 +1,7 @@
 package com.example.hapkidoplanningapp.domain
 
 import androidx.room.Entity
+import java.io.Serializable
 
 @Entity
 class User(
@@ -11,6 +12,6 @@ class User(
     var isTrainer: Boolean? = false
 
 
-) {
+): Serializable {
 
 }

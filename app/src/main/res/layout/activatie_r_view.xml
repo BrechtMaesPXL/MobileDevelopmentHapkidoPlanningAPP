@@ -9,9 +9,13 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rvCard"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:clickable="true"
+
+        >
 
 
         <TextView
@@ -72,7 +76,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.444"
             app:srcCompat="@drawable/baseline_delete_outline_24"
-            app:useCompatPadding="false" />
+            app:useCompatPadding="false"
+            android:focusable="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
