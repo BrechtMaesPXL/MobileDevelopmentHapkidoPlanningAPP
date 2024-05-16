@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -25,14 +24,14 @@ class activatieRViewHolder(
     private val activities: MutableList<Activities>,
     private val dbLocal: dbLocal,
     private val activity: FragmentActivity?,
-    private val view: Home,
+    private val view: RVUListener,
     private val isLocal: Boolean = false,
 ) : RecyclerView.Adapter<activatieRViewHolder.ViewHolderClass>() {
 
     private lateinit var myActivatiesDAO: MyActivatiesDAO
     private lateinit var aS: activatiesService
 
-    private lateinit var mToast: Toast
+    private var oriantaionLandscape: Boolean = false
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
@@ -40,10 +39,15 @@ class activatieRViewHolder(
 
         myActivatiesDAO = dbLocal.getdb().MyActivatiesDAO()
         aS = activatiesService()
-
         return ViewHolderClass(itemView)
     }
+    fun getItem(position: Int): Activities{
+        return activities[position]
+    }
 
+    fun setOrientaion(islandscape: Boolean){
+        oriantaionLandscape = islandscape
+    }
     override fun getItemCount(): Int {
         return  activities.size
 
@@ -55,12 +59,18 @@ class activatieRViewHolder(
         holder.rvDate.text = currentItem.dateActivities?.let { formatDate(it) }
 
         holder.rvCard.setOnClickListener {
-            val fragment = DetailActivatie.newInstance(currentItem)
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, fragment)
-                addToBackStack("Home")
-                commit()
+
+            if(!oriantaionLandscape) {
+                val fragment = DetailActivatie.newInstance(currentItem)
+                activity?.supportFragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.container, fragment)
+                    addToBackStack("Home")
+                    commit()
+                }
+            }else {
+                view.switchDetailframe(currentItem)
             }
+
         }
 
 

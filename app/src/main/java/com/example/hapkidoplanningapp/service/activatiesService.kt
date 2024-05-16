@@ -21,7 +21,7 @@ class activatiesService {
             description = description,
             place = place
         )
-
+        
         activatieCollection
             .add(newActivities)
             .addOnSuccessListener { documentReference ->

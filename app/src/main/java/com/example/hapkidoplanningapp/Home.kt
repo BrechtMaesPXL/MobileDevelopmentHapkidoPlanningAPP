@@ -13,6 +13,7 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hapkidoplanningapp.domain.Activities
 import com.example.hapkidoplanningapp.service.MyActivatiesDAO
 import com.example.hapkidoplanningapp.service.activatiesService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -22,7 +23,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class Home : Fragment() {
+class Home : Fragment(), RVUListener {
 
     private lateinit var rV: RecyclerView
     private lateinit var rVMy: RecyclerView
@@ -49,11 +50,7 @@ class Home : Fragment() {
         rVMy = view.findViewById(R.id.recyclerViewMyActivaites)
         laudingAnimation = view.findViewById(R.id.loadingPanel)
 
-        val orientation = resources.configuration.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE){
-            frame = view.findViewById(R.id.fameDetail)
-            orientaionLandscapeSetup()
-        }
+
 
         return view
     }
@@ -71,6 +68,8 @@ class Home : Fragment() {
         aS = activatiesService()
 
         fetchData()
+        fillRecyclerView()
+
 
     }
 
@@ -79,23 +78,45 @@ class Home : Fragment() {
         addActivetieButton?.setOnClickListener {
             val fragment = fragment_add_activetie.newInstance()
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                setHasOptionsMenu(false)
-                replace(R.id.container, fragment)
+                replace(R.id.fameDetail, fragment)
                 addToBackStack("Home")
                 commit()
             }
         }
     }
-    private fun orientaionLandscapeSetup(){
+    private fun checkOriantiaion() {
+        if (!isAdded) {
+            return // Fragment is not attached to an activity, do nothing
+        }
+        val orientation = resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE){
+            (rV.adapter as? activatieRViewHolder)?.setOrientaion(true)
+            val firstItem = (rV.adapter as? activatieRViewHolder)?.getItem(0)
 
+            firstItem?.let { switchDetailframe(it) }
+        }
+
+    }
+     override fun switchDetailframe(activatie: Activities){
+        val detailActivatie =  DetailActivatie.newInstance(activatie)
+
+        view?.findViewById<FrameLayout>(R.id.fameDetail)?.let { container ->
+            childFragmentManager.beginTransaction().apply {
+                replace(container.id, detailActivatie)
+                addToBackStack(null)
+                commit()
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateRV(){
-        rV.adapter?.notifyDataSetChanged()
-        rVMy.adapter?.notifyDataSetChanged()
+    override fun updateRV(){
+//        rV.adapter?.notifyDataSetChanged()
+//        rVMy.adapter?.notifyDataSetChanged()
+        fetchData()
+        fillRecyclerView()
     }
-    fun showToast(message: String){
+    override fun showToast(message: String){
         activity?.runOnUiThread {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
@@ -111,8 +132,8 @@ class Home : Fragment() {
                 } else {
                     if (activitiesList != null) {
                         rV.adapter = activatieRViewHolder(activitiesList.toMutableList() , dbLocal,  activity, this)
-                        laudingAnimation.setVisibility(View.GONE);
-
+                        laudingAnimation.visibility = View.GONE;
+                        checkOriantiaion()
                     } else {
                         Log.e("Fragment", "Activities list is null")
                     }
@@ -125,7 +146,6 @@ class Home : Fragment() {
         // Fetch Firebase data
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                fillRecyclerView()
 
                 val myActivitiesList = withContext(Dispatchers.IO) { myActivatiesDAO.getAll() }
                 rVMy.adapter = activatieRViewHolder(myActivitiesList.toMutableList(), dbLocal, activity,this@Home, true )
