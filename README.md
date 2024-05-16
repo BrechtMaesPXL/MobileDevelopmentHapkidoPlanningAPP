@@ -13,3 +13,5 @@ Planning APP for mudori hapkido
 + [ ] make It Beautiful 
 + [ ] make It functional  
 + [ ] Extras... 
++ + [ ] pop-up
+  + [ ] ads 
