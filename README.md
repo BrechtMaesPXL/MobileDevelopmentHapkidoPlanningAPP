@@ -11,4 +11,5 @@ Planning APP for mudori hapkido
 + [X] Locale DataBank
 + [X] (Volley ???) -> Firebase async calls
 + [ ] make It Beautiful 
++ [ ] make It functional  
 + [ ] Extras... 
