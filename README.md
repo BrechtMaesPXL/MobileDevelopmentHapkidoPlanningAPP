@@ -6,7 +6,7 @@ Planning APP for mudori hapkido
 + [x] Activatity Screen: RecyclerView
 + [x] web service: Online Database
 + [x] Login Screen
-+ [ ] Activatity Screen: maserdetail view
++ [x] Activatity Screen: maserdetail view
 + [ ] landscape
 + [X] Locale DataBank
 + [X] (Volley ???) -> Firebase async calls
