@@ -1,38 +1,42 @@
 package com.example.hapkidoplanningapp.service
 
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.hapkidoplanningapp.domain.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import kotlinx.coroutines.tasks.await
 
 class loginService {
     val auth = Firebase.auth
     var error = ""
-     fun login(eMial: String, password: String): String {
+    val uS = userService()
+    suspend fun login(email: String, password: String): String {
+        return try {
+            auth.signInWithEmailAndPassword(email, password).await()
+            ""
+        } catch (e: Exception) {
+            e.localizedMessage ?: "Onbekende fout"
+        }
+    }
+    fun logout(){
+        auth.signOut()
+    }
+    suspend fun register(user: User, previus: User?): String {
+        val previousUser = previus
+        return try {
+            auth.createUserWithEmailAndPassword(user.eMail, user.password).await()
 
-        auth.signInWithEmailAndPassword(eMial, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
+            uS.addUser(auth.currentUser, user)
 
-                } else {
-                    // Foutmelding weergeven als de login mislukt
-                    error += task.exception?.localizedMessage
-//                    Toast.makeText(requireContext(), "Login mislukt: $error", Toast.LENGTH_SHORT).show()
+            if (previousUser != null) {
+                val previousEmail = previousUser.eMail
+                val previousPassword =  previousUser.password
+                if (!previousEmail.isNullOrEmpty()) {
+                    auth.signInWithEmailAndPassword(previousEmail, previousPassword).await()
                 }
             }
-         return error
+            ""
+        } catch (e: Exception) {
+            e.localizedMessage ?: "Onbekende fout"
+        }
     }
-    fun regester(user: User): String {
-        auth.createUserWithEmailAndPassword(user.name, user.password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                } else {
-                     error += task.exception?.localizedMessage
-                }
-            }
-        return error
-
-    }
-
 }

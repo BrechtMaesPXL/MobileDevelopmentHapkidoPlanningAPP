@@ -56,14 +56,13 @@
 
     <CalendarView
         android:id="@+id/calendar"
-        android:layout_width="350dp"
-        android:layout_height="302dp"
+        android:layout_width="382dp"
+        android:layout_height="396dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

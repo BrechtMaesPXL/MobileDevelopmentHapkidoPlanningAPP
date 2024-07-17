@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Regestration">
+
+    <EditText
+        android:id="@+id/userNameField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:ems="10"
+        android:hint="user"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/PasswordField"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/PasswordField"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/PasswordField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/emailField"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/emailField"
+        app:layout_constraintTop_toBottomOf="@+id/userNameField" />
+
+    <EditText
+        android:id="@+id/emailField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:hint="email"
+        app:layout_constraintEnd_toEndOf="@+id/isTrainerBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/isTrainerBox"
+        app:layout_constraintTop_toBottomOf="@+id/PasswordField" />
+
+    <Button
+        android:id="@+id/regesterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="regester"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.894" />
+
+    <CheckBox
+        android:id="@+id/isTrainerBox"
+        android:layout_width="203dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:text="Is trainer"
+        app:layout_constraintEnd_toEndOf="@+id/regesterButton"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="@+id/regesterButton"
+        app:layout_constraintTop_toBottomOf="@+id/emailField" />
+
+    <Spinner
+        android:id="@+id/beltSpinner"
+        android:layout_width="204dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:text="belt"
+        app:layout_constraintEnd_toEndOf="@+id/isTrainerBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/isTrainerBox"
+        app:layout_constraintTop_toBottomOf="@+id/isTrainerBox" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

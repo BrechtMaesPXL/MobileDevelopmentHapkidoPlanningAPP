@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_login_to_home3"
             app:destination="@id/home3" />
+        <action
+            android:id="@+id/action_login_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_add_activetie"
@@ -40,7 +43,14 @@
         android:id="@+id/userFragment"
         android:name="com.example.hapkidoplanningapp.UserFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_userFragment_to_regestration"
+            app:destination="@id/regestration" />
+        <action
+            android:id="@+id/action_userFragment_to_login"
+            app:destination="@id/login" />
+    </fragment>
     <fragment
         android:id="@+id/backscreenFragment"
         android:name="com.example.hapkidoplanningapp.BackscreenFragment"
@@ -50,4 +60,9 @@
             android:id="@+id/action_backscreenFragment_to_login"
             app:destination="@id/login" />
     </fragment>
+    <fragment
+        android:id="@+id/regestration"
+        android:name="com.example.hapkidoplanningapp.Regestration"
+        android:label="fragment_regestration"
+        tools:layout="@layout/fragment_regestration" />
 </navigation>

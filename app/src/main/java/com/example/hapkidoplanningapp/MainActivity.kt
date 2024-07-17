@@ -5,14 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.example.hapkidoplanningapp.db.LocalDataBase
+import com.example.hapkidoplanningapp.domain.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-    class MainActivity : AppCompatActivity(), NavbarProvider, dbLocal {
+    class MainActivity : AppCompatActivity(), NavbarProvider, dbLocal, UserProvider {
 
         lateinit var bottomNavigation : BottomNavigationView
 
         lateinit var db : LocalDataBase
-
+        var currentUser : User? = User("main", "main")
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
 
@@ -48,6 +49,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
                         loadFragment(UserFragment())
                         true
                     }
+
                     else -> false
                 }
             }
@@ -65,6 +67,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.container, fragment)
             transaction.commit()
+        }
+
+        override fun getUser(): User? {
+            return currentUser
+        }
+
+        override fun updateUser(user:User?) {
+
+            currentUser = user
         }
 
 

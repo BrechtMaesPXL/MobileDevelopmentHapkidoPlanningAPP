@@ -1,17 +1,16 @@
 package com.example.hapkidoplanningapp.domain
 
 import androidx.room.Entity
-import java.io.Serializable
+import com.example.hapkidoplanningapp.beltGrade
 
 @Entity
-class User(
-
-    var name: String,
-    var password: String,
-    var belt: String? = "keub 8",
-    var isTrainer: Boolean? = false
-
-
-): Serializable {
-
+data class User(
+    var eMail: String = "",
+    var password: String = "",
+    var name: String = "",
+    var belt: beltGrade = beltGrade.Keub8 ,
+    var isTrainer: Boolean = false
+) {
+    // No-argument constructor for Firestore
+    constructor() : this("", "", "", beltGrade.Keub8, false)
 }

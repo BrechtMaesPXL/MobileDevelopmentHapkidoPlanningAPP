@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
         android:ems="10"
+        android:hint="e-mail"
+
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/PasswordField"
         app:layout_constraintEnd_toEndOf="@+id/PasswordField"
@@ -24,6 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Password"
+
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,20 +38,11 @@
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="152dp"
         android:text="login"
-        app:layout_constraintEnd_toEndOf="@+id/PasswordField"
-        app:layout_constraintStart_toStartOf="@+id/PasswordField"
-        app:layout_constraintTop_toBottomOf="@+id/PasswordField" />
-
-    <Button
-        android:id="@+id/regesterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="212dp"
-        android:text="rester"
         app:layout_constraintEnd_toEndOf="@+id/PasswordField"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="@+id/PasswordField"
         app:layout_constraintTop_toBottomOf="@+id/PasswordField" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -78,7 +78,7 @@ class Home : Fragment(), RVUListener {
         addActivetieButton?.setOnClickListener {
             val fragment = fragment_add_activetie.newInstance()
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fameDetail, fragment)
+                replace(R.id.container, fragment)
                 addToBackStack("Home")
                 commit()
             }
@@ -86,7 +86,7 @@ class Home : Fragment(), RVUListener {
     }
     private fun checkOriantiaion() {
         if (!isAdded) {
-            return // Fragment is not attached to an activity, do nothing
+            return
         }
         val orientation = resources.configuration.orientation
         if (orientation == Configuration.ORIENTATION_LANDSCAPE){
