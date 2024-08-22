@@ -11,9 +11,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
     class MainActivity : AppCompatActivity(), NavbarProvider, dbLocal, UserProvider {
 
         lateinit var bottomNavigation : BottomNavigationView
-
+        companion object {
+            private const val CURRENT_FRAGMENT_TAG = "current_fragment_tag"
+            private const val MY_FRAGMENT_KEY = "myFragmentName"
+        }
         lateinit var db : LocalDataBase
         var currentUser : User? = User("main", "main")
+        private var currentFragment: Fragment? = null
+
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
 
@@ -35,6 +40,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
             loadFragment(Login())
 
             bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNav)!!
+
+
+
+            if (savedInstanceState != null) {
+                currentFragment = supportFragmentManager.getFragment(savedInstanceState, MY_FRAGMENT_KEY)
+            } else {
+                currentFragment = Login()
+                loadFragment(currentFragment!!)
+            }
+
+
             bottomNavigation.setOnItemSelectedListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.home -> {
@@ -63,7 +79,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
         }
 
 
-        private fun loadFragment(fragment: Fragment) {
+        fun loadFragment(fragment: Fragment) {
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.container, fragment)
             transaction.commit()
@@ -76,6 +92,27 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
         override fun updateUser(user:User?) {
 
             currentUser = user
+        }
+        override fun onSaveInstanceState(outState: Bundle) {
+            super.onSaveInstanceState(outState)
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
+            if (currentFragment != null && currentFragment.isAdded) {
+                supportFragmentManager.putFragment(outState, MY_FRAGMENT_KEY, currentFragment)
+            }
+        }
+
+        override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+            super.onRestoreInstanceState(savedInstanceState)
+            if (savedInstanceState != null) {
+                try {
+                    val restoredFragment = supportFragmentManager.getFragment(savedInstanceState, MY_FRAGMENT_KEY)
+                    if (restoredFragment != null) {
+                        loadFragment(restoredFragment)
+                    }
+                } catch (e: IllegalStateException) {
+                    e.printStackTrace()
+                }
+            }
         }
 
 

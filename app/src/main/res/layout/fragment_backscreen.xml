@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/fragment_backscreen_scene"
-    tools:context=".BackscreenFragment">
+    tools:context=".BackscreenFragment"
+    android:background="@color/HapGray">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -16,6 +17,5 @@
         android:src="@drawable/_ebbb725_9404_4ba8_b834_066f621622bb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.501"
-        tools:layout_editor_absoluteX="28dp" />
+        tools:layout_editor_absoluteX="17dp" />
 </androidx.constraintlayout.motion.widget.MotionLayout>

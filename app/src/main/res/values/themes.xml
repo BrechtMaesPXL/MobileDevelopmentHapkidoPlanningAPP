@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.HapkidoPlanningApp" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/HapBlue</item>
-        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorPrimaryDark">@color/HapGray</item>
         <item name="colorAccent">@color/HapRed</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColorSecondary">@color/primaryTextColor</item>
+        <item name="android:textColorHint">@color/primaryTextColor</item>
+
+        <item name="android:checkboxStyle">@style/CustomCheckboxStyle</item>
+
+        <item name="buttonStyle">@style/CustomButtonStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/CustomSpinnerStyle</item>
+
+
+
     </style>
+
 </resources>

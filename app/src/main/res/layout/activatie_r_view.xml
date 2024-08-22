@@ -6,45 +6,50 @@
     android:layout_marginTop="0dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rvCard"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:clickable="true"
+        android:layout_height="match_parent"
+        android:background="@color/HapBlue"
+        android:clickable="true">
 
-        >
 
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/imageFilterView"
+            android:layout_width="391dp"
+            android:layout_height="81dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/bluethemplatehs" />
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="169dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="20dp"
+
+            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-           />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/date"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            app:layout_constraintLeft_toRightOf="@id/title"
-            app:layout_constraintStart_toEndOf="@+id/title"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="96dp"
+            android:layout_height="36dp"
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@+id/title"
-            android:layout_margin="2dp"
-            android:background="@color/HapBlue"
-            app:layout_constraintBottom_toBottomOf="@+id/title"
-            app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            android:orientation="horizontal" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -55,10 +60,10 @@
             app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.893"
+            app:layout_constraintHorizontal_bias="0.895"
             app:layout_constraintStart_toEndOf="@+id/date"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.444"
+            app:layout_constraintVertical_bias="0.589"
             app:srcCompat="@drawable/baseline_add_24"
             app:useCompatPadding="false" />
 
@@ -67,17 +72,16 @@
             android:id="@+id/delMyActivitieButton"
             android:layout_width="52dp"
             android:layout_height="42dp"
+            android:layout_marginEnd="76dp"
             android:clickable="true"
+            android:focusable="true"
             app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.526"
-            app:layout_constraintStart_toEndOf="@+id/date"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.444"
+            app:layout_constraintVertical_bias="0.512"
             app:srcCompat="@drawable/baseline_delete_outline_24"
-            app:useCompatPadding="false"
-            android:focusable="true" />
+            app:useCompatPadding="false" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

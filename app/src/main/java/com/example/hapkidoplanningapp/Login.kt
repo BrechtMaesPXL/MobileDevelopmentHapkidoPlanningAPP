@@ -39,39 +39,44 @@ class Login : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navbarProvider?.getBottomNav()?.visibility = View.GONE
+
         auth = Firebase.auth
         uS = userService();
 
-        if (auth.currentUser != null) {
-            CoroutineScope(Dispatchers.Main).launch {
-                var user = auth.currentUser
 
-                if (user != null) {
-                    currentUser = uS.getUserByUID(user.uid)
+        CoroutineScope(Dispatchers.Main).launch {
+            val user = auth.currentUser
 
-                    uP.updateUser(currentUser)
-                } else {
-                    navbarProvider?.getBottomNav()?.visibility = View.GONE
+            if (user != null) {
+                navbarProvider?.getBottomNav()?.visibility = View.VISIBLE
 
+                currentUser = uS.getUserByUID(user.uid)
 
+                uP.updateUser(currentUser)
 
-                    password = view.findViewById(R.id.PasswordField)
-                    email = view.findViewById(R.id.emailField)
+                (activity as? MainActivity)?.loadFragment(Home())
 
-                    loginButton = view.findViewById(R.id.loginButton)
-
-                    LS = loginService();
+            } else {
 
 
 
-                    loginButton.setOnClickListener {
-                        login()
-                    }
+                password = view.findViewById(R.id.PasswordField)
+                email = view.findViewById(R.id.emailField)
+
+                loginButton = view.findViewById(R.id.loginButton)
+
+                LS = loginService();
+
+
+
+                loginButton.setOnClickListener {
+                    login()
+                }
 
 //          resterButton.setOnClickListener{
 //            register()
 //
-                }
             }
         }
     }
@@ -140,6 +145,8 @@ class Login : Fragment() {
 
                 currentUser = uS.getUserByUID(auth.currentUser!!.uid)
                 uP.updateUser(currentUser)
+
+                (activity as? MainActivity)?.loadFragment(Home())
             } else {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }

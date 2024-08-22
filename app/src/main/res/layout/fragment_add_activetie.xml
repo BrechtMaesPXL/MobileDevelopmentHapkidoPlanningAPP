@@ -12,57 +12,69 @@
         android:layout_width="409dp"
         android:layout_height="0dp"
         android:text="add Activatie"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/PlaceField"
+        android:id="@+id/editTextText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="Title"
         android:inputType="text"
-        android:text="Place"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintHorizontal_bias="0.58"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/PlaceField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="Place"
         android:inputType="text"
-        android:text="title"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintEnd_toEndOf="@+id/PlaceField"
-        app:layout_constraintStart_toStartOf="@+id/PlaceField" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextText"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
     <EditText
         android:id="@+id/editTextTextMultiLine2"
-        android:layout_width="204dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="124dp"
+        android:layout_width="216dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="discription"
         android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText"
+        app:layout_constraintEnd_toEndOf="@+id/PlaceField"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
+        app:layout_constraintStart_toStartOf="@+id/PlaceField"
         app:layout_constraintTop_toBottomOf="@+id/PlaceField" />
 
     <CalendarView
         android:id="@+id/calendar"
-        android:layout_width="382dp"
-        android:layout_height="396dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
+        android:layout_width="match_parent"
+        android:layout_height="328dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker" />
 
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="416dp"
+        android:layout_height="147dp"
+        android:layout_marginTop="8dp"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

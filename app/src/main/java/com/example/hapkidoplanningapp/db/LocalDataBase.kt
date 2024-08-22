@@ -9,7 +9,7 @@ import com.example.hapkidoplanningapp.converters.UserListConverter
 import com.example.hapkidoplanningapp.domain.Activities
 import com.example.hapkidoplanningapp.service.MyActivatiesDAO
 
-@Database(entities = [Activities::class], version = 3)
+@Database(entities = [Activities::class], version = 6)
 @TypeConverters(Converters::class, UserConverter::class, UserListConverter::class)
 abstract class LocalDataBase : RoomDatabase () {
     abstract fun MyActivatiesDAO() : MyActivatiesDAO

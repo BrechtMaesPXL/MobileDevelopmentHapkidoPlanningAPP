@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_userFragment_to_login"
             app:destination="@id/login" />
+        <action
+            android:id="@+id/action_userFragment_to_trainerUserFragment"
+            app:destination="@id/trainerUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/backscreenFragment"
@@ -65,4 +68,9 @@
         android:name="com.example.hapkidoplanningapp.Regestration"
         android:label="fragment_regestration"
         tools:layout="@layout/fragment_regestration" />
+    <fragment
+        android:id="@+id/trainerUserFragment"
+        android:name="com.example.hapkidoplanningapp.trainerUserFragment"
+        android:label="fragment_trainer_user_f"
+        tools:layout="@layout/fragment_trainer_user_f" />
 </navigation>

@@ -8,24 +8,24 @@ import java.util.Date
 
 @Entity(tableName = "activatie")
 class Activities(
-    var id: Int? = 1,
+    var id: String = "none",
 
     @PrimaryKey
     var dateActivities: Date? = Date(),
     var title: String? = "no title",
     var description: String? = "no description ",
-    var attendees: MutableList<User>? = mutableListOf(),
-//    var trainer: User? = User("jhon", "dow"),
+    var attendees: MutableList<User?>? = mutableListOf(),
+    var trainer: User? = User("jhon", "dow"),
     var place: String? = " no place"
 
 ) : Serializable {
 
-    fun addAttendee(users: User) {
+    fun addAttendee(users: User?) {
         attendees?.add(users)
     }
 
     fun removeAttendee(name: String) {
-        attendees?.removeIf { it.name == name }
+        attendees?.removeIf { it!!.name == name }
     }
 //    constructor(
 //        id: Int,

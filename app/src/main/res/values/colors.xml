@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="HapBlue">#0069B3</color>
     <color name="HapRed">#E0001B</color>
+    <color name="HapGray">#4A4B50</color>
+    <color name="primaryTextColor">#FFFFFFFF</color>
 </resources>

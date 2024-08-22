@@ -110,8 +110,20 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="323" />
-                            <option name="y" value="477" />
+                            <option name="x" value="306" />
+                            <option name="y" value="437" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="trainerUserFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="317" />
+                            <option name="y" value="746" />
                           </Point>
                         </option>
                       </LayoutPositions>

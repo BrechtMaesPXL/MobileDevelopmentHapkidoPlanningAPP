@@ -62,7 +62,7 @@ class Regestration : Fragment() {
             register()
         }
     }
-
+    //TODO: mabby cahnge
     private fun setupBeltSpinner() {
         val beltGrades = beltGrade.entries.map { it.name }
         val adapter = ArrayAdapter(
@@ -80,7 +80,30 @@ class Regestration : Fragment() {
     ): View? {
        return inflater.inflate(R.layout.fragment_regestration, container, false)
     }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("name_value", name.text.toString())
+        outState.putString("password_value", password.text.toString())
+        outState.putString("email_value", email.text.toString())
+        outState.putBoolean("isTrainer_value", isTrainer.isSelected)
 
+
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+
+
+        super.onViewStateRestored(savedInstanceState)
+        if(savedInstanceState != null){
+            name.setText(savedInstanceState.getString("name_value"))
+            password.setText(savedInstanceState.getString("password_value"))
+            email.setText(savedInstanceState.getString("email_value"))
+            isTrainer.setChecked(savedInstanceState.getBoolean("isTrainer_value"))
+
+        }
+
+
+    }
     private  fun register() {
         val emailText = name.text.toString()
         val passwordText = password.text.toString()

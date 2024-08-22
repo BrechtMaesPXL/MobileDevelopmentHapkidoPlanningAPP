@@ -27,6 +27,7 @@ private const val ARG_PARAM2 = "param2"
 
 class UserFragment : Fragment() {
 
+    private lateinit var navbarProvider: NavbarProvider
     private lateinit var name: TextView
     private lateinit var eMail: TextView
     private lateinit var belt: TextView
@@ -37,6 +38,7 @@ class UserFragment : Fragment() {
     private lateinit var lS: loginService
 
     private lateinit var uP: UserProvider
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -50,10 +52,13 @@ class UserFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navbarProvider.getBottomNav().visibility = View.VISIBLE
 
         name = view.findViewById(R.id.nameView)
         eMail = view.findViewById(R.id.eMailView)
@@ -70,14 +75,28 @@ class UserFragment : Fragment() {
     private fun setupButton() {
         val regestrationButton = view?.findViewById<Button>(R.id.RegestrationButton)
         val logoutButton = view?.findViewById<Button>(R.id.logoutButton)
-
-        regestrationButton?.setOnClickListener {
-            val fragment = Regestration.newInstance()
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.container, fragment)
-                addToBackStack("User")
-                commit()
+        val studentButton = view?.findViewById<Button>(R.id.showStudentsButton)
+        if(uP.getUser()?.isTrainer == true) {
+            regestrationButton?.setOnClickListener {
+                val fragment = Regestration.newInstance()
+                activity?.supportFragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.container, fragment)
+                    addToBackStack("User")
+                    commit()
+                }
             }
+            studentButton?.setOnClickListener {
+                val fragment3 = trainerUserFragment.newInstance()
+                activity?.supportFragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.container, fragment3)
+                    addToBackStack("student")
+                    commit()
+                }
+            }
+        } else {
+            regestrationButton?.visibility = View.GONE
+            studentButton?.visibility = View.GONE
+
         }
 
         logoutButton?.setOnClickListener {
@@ -93,9 +112,9 @@ class UserFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-//        if (context is NavbarProvider) {
-//            navbarProvider = context
-//        }
+        if (context is NavbarProvider) {
+            navbarProvider = context
+        }
         if (context is UserProvider) {
             uP = context
         }

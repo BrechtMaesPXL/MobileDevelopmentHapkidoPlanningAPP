@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
@@ -17,24 +18,21 @@ import com.example.hapkidoplanningapp.domain.Activities
 import com.example.hapkidoplanningapp.service.MyActivatiesDAO
 import com.example.hapkidoplanningapp.service.activatiesService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class Home : Fragment(), RVUListener {
 
     private lateinit var rV: RecyclerView
-    private lateinit var rVMy: RecyclerView
+    //private lateinit var rVMy: RecyclerView
 
     private lateinit var aS: activatiesService
+    private lateinit var uP: UserProvider
     private lateinit var myActivatiesDAO: MyActivatiesDAO
     private lateinit var dbLocal: dbLocal
 
     private lateinit var laudingAnimation: RelativeLayout
     private var navbarProvider: NavbarProvider? = null
 
+    private lateinit var calander: CalendarView
 
     private lateinit var frame: FrameLayout
 
@@ -47,7 +45,7 @@ class Home : Fragment(), RVUListener {
 
         val view = inflater.inflate(R.layout.fragment_activaties, container, false)
         rV = view.findViewById(R.id.recyclerView)
-        rVMy = view.findViewById(R.id.recyclerViewMyActivaites)
+        //rVMy = view.findViewById(R.id.recyclerViewMyActivaites)
         laudingAnimation = view.findViewById(R.id.loadingPanel)
 
 
@@ -60,14 +58,20 @@ class Home : Fragment(), RVUListener {
 
         navbarProvider?.getBottomNav()?.visibility = View.VISIBLE
 
+        if(uP.getUser()?.isTrainer == true){
+            setupAddActivitieButton()
 
-        setupAddActivitieButton()
+        }else {
+            val addActivetieButton = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
+            addActivetieButton.visibility = View.GONE
+        }
 
         dbLocal = context as dbLocal
         myActivatiesDAO = dbLocal.getdb().MyActivatiesDAO()
         aS = activatiesService()
 
-        fetchData()
+        calander = view.findViewById(R.id.calendarView)
+        //fetchData()
         fillRecyclerView()
 
 
@@ -113,7 +117,7 @@ class Home : Fragment(), RVUListener {
     override fun updateRV(){
 //        rV.adapter?.notifyDataSetChanged()
 //        rVMy.adapter?.notifyDataSetChanged()
-        fetchData()
+        //fetchData()
         fillRecyclerView()
     }
     override fun showToast(message: String){
@@ -131,7 +135,7 @@ class Home : Fragment(), RVUListener {
                     Log.e("Fragment", "Error getting activities: ${exception.message}")
                 } else {
                     if (activitiesList != null) {
-                        rV.adapter = activatieRViewHolder(activitiesList.toMutableList() , dbLocal,  activity, this)
+                        rV.adapter = activatieRViewHolder(activitiesList.toMutableList() , dbLocal,  activity, this, uP.getUser())
                         laudingAnimation.visibility = View.GONE;
                         checkOriantiaion()
                     } else {
@@ -141,23 +145,26 @@ class Home : Fragment(), RVUListener {
             }
         }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun fetchData() {
-        // Fetch Firebase data
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-
-                val myActivitiesList = withContext(Dispatchers.IO) { myActivatiesDAO.getAll() }
-                rVMy.adapter = activatieRViewHolder(myActivitiesList.toMutableList(), dbLocal, activity,this@Home, true )
-            } catch (e: Exception) {
-                Log.e("Home", "Error fetching data: ${e.message}")
-            }
-        }
-    }
+//    @OptIn(DelicateCoroutinesApi::class)
+//    private fun fetchData() {
+//        // Fetch Firebase data
+//        GlobalScope.launch(Dispatchers.Main) {
+//            try {
+//
+//                val myActivitiesList = withContext(Dispatchers.IO) { myActivatiesDAO.getAll() }
+//                rVMy.adapter = activatieRViewHolder(myActivitiesList.toMutableList(), dbLocal, activity,this@Home, uP.getUser(), true )
+//            } catch (e: Exception) {
+//                Log.e("Home", "Error fetching data: ${e.message}")
+//            }
+//        }
+//    }
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is NavbarProvider) {
             navbarProvider = context
+        }
+        if (context is UserProvider) {
+            uP = context
         }
     }
 

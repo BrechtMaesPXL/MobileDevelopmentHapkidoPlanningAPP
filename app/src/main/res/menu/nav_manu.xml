@@ -5,15 +5,15 @@
         <item
             android:id="@+id/home"
             android:icon="@drawable/baseline_featured_play_list_24"
-            android:title="@string/home" />
+            android:title="@string/events" />
         <item
             android:id="@+id/message"
             android:icon="@drawable/outline_alt_route_24"
-            android:title="@string/message" />
+            android:title="@string/activaties" />
         <item
             android:id="@+id/settings"
             android:icon="@drawable/outline_boy_24"
-            android:title="@string/settings" />
+            android:title="@string/user" />
     </group>
 
 </menu>

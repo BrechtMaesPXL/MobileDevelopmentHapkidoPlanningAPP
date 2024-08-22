@@ -56,6 +56,7 @@ class DetailActivatie : Fragment() {
             view.findViewById<TextView>(R.id.Date).text = formatDate(it.dateActivities)
             view.findViewById<TextView>(R.id.place).text = it.place
             view.findViewById<TextView>(R.id.attendees).text = it.attendees?.count().toString()
+            view.findViewById<TextView>(R.id.Trainer).text = "Trainer: ${it.trainer?.name},${it.trainer?.belt} "
         }
     }
 

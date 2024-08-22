@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hapkidoplanningapp.domain.Activities
+import com.example.hapkidoplanningapp.domain.User
 import com.example.hapkidoplanningapp.service.MyActivatiesDAO
 import com.example.hapkidoplanningapp.service.activatiesService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,6 +26,7 @@ class activatieRViewHolder(
     private val dbLocal: dbLocal,
     private val activity: FragmentActivity?,
     private val view: RVUListener,
+    private val currentUser: User?,
     private val isLocal: Boolean = false,
 ) : RecyclerView.Adapter<activatieRViewHolder.ViewHolderClass>() {
 
@@ -74,13 +76,18 @@ class activatieRViewHolder(
         }
 
 
-        if (isLocal) {
+        if (isLocal ) {
             holder.rvDelButton.setVisibility(View.GONE);
             holder.rvAddButton.setImageResource(R.drawable.baseline_delete_outline_24)
         } else {
             holder.rvAddButton.setImageResource(R.drawable.baseline_add_24)
-            holder.rvDelButton.setOnClickListener {
-                delActivity(currentItem)
+            if (currentUser?.isTrainer == true) {
+                holder.rvDelButton.setOnClickListener {
+                    delActivity(currentItem)
+                }
+            } else {
+                holder.rvDelButton.setVisibility(View.GONE);
+
             }
         }
         holder.rvAddButton.setOnClickListener {
@@ -96,11 +103,17 @@ class activatieRViewHolder(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 if (isLocal){
+                    currentUser?.let { activity.removeAttendee(it.name) }
+                    aS.editActivatiesByDate(activity)
                     dbLocal.getdb().MyActivatiesDAO().delete(activity)
                     view.showToast("successful delete ${activity.title} to attending activaties")
 
                 } else {
+                    activity.addAttendee(currentUser)
+
                     dbLocal.getdb().MyActivatiesDAO().insertAll(activity)
+                    aS.editActivatiesByDate(activity)
+
                     view.showToast("successful added ${activity.title} to attending activaties")
 
                 }
@@ -117,6 +130,8 @@ class activatieRViewHolder(
     private fun delActivity(activity: Activities) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                currentUser?.let { activity.removeAttendee(it.name) }
+                aS.editActivatiesByDate(activity)
                 aS.delActivaties(activity)
                 view.showToast("successfully del ${activity.title}")
 
@@ -132,7 +147,7 @@ class activatieRViewHolder(
     }
 
 
-    class ViewHolderClass(itemView: View, ): RecyclerView.ViewHolder(itemView) {
+    class ViewHolderClass(itemView: View ): RecyclerView.ViewHolder(itemView) {
         val rvTitle: TextView = itemView.findViewById(R.id.title)
         val rvDate: TextView = itemView.findViewById(R.id.date)
         val rvAddButton: FloatingActionButton = itemView.findViewById(R.id.addMyActivitieButton)
