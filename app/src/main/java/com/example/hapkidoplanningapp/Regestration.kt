@@ -86,6 +86,7 @@ class Regestration : Fragment() {
         outState.putString("password_value", password.text.toString())
         outState.putString("email_value", email.text.toString())
         outState.putBoolean("isTrainer_value", isTrainer.isSelected)
+        outState.putInt("belt_spinner_position", beltSpinner.selectedItemPosition)
 
 
     }
@@ -99,6 +100,7 @@ class Regestration : Fragment() {
             password.setText(savedInstanceState.getString("password_value"))
             email.setText(savedInstanceState.getString("email_value"))
             isTrainer.setChecked(savedInstanceState.getBoolean("isTrainer_value"))
+            beltSpinner.setSelection(savedInstanceState.getInt("belt_spinner_position", 0))
 
         }
 

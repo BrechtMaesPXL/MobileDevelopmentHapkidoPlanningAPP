@@ -100,6 +100,7 @@ class fragment_add_activetie : Fragment() {
             timePicker.post {
                 timePicker.hour = savedInstanceState.getInt("timePicker_hour_value")
                 timePicker.minute = savedInstanceState.getInt("timePicker_minute_value")
+
             }
 
         }

@@ -13,7 +13,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="44dp"
-        android:text="name"
+        android:text="@string/name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +21,7 @@
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="logout"
+        android:text="@string/logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.81"
@@ -33,7 +33,7 @@
         android:id="@+id/RegestrationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Regestration"
+        android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.81"
@@ -47,7 +47,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="192dp"
-        android:text="belt"
+        android:text="@string/belt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +57,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="116dp"
-        android:text="eMail"
+        android:text="@string/e_mail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,7 +65,7 @@
         android:id="@+id/showStudentsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="students"
+        android:text="@string/students"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.81"

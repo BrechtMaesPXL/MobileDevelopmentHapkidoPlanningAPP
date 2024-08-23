@@ -14,7 +14,8 @@
         android:layout_width="390dp"
         android:layout_height="match_parent"
         android:background="@color/HapBlue"
-        android:clickable="true">
+        android:clickable="true"
+        android:focusable="true">
 
 
         <ImageView

@@ -24,8 +24,8 @@
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="edit"
+        android:layout_marginTop="56dp"
+        android:text="@string/edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerBelt" />
@@ -52,7 +52,7 @@
         android:id="@+id/emailField"
         android:layout_width="136dp"
         android:layout_height="41dp"
-        android:text="trainer"
+        android:text="@string/trainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.783"
@@ -62,8 +62,8 @@
 
     <Spinner
         android:id="@+id/spinnerBelt"
-        android:layout_width="143dp"
-        android:layout_height="26dp"
+        android:layout_width="142dp"
+        android:layout_height="41dp"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.78"

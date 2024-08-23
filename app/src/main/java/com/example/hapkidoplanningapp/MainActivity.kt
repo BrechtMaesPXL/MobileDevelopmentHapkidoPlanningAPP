@@ -56,6 +56,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
                     R.id.home -> {
                         loadFragment(Home())
                         true
+
                     }
                     R.id.message -> {
                         loadFragment(LocationFragment())

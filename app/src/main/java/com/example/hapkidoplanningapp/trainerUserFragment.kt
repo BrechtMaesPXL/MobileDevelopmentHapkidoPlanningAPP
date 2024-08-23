@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 
 class trainerUserFragment : Fragment() {
 
-    private lateinit var selectedUser: User
+    private  var selectedUser: User? = null
     private lateinit var uP: UserProvider
     private lateinit var navbarProvider: NavbarProvider
     private lateinit var rVU: RecyclerView
@@ -102,19 +102,21 @@ class trainerUserFragment : Fragment() {
     }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        //outState.putParcelable("user_value", selectedUser)
+        outState.putParcelable("user_value", selectedUser)
 
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        if(savedInstanceState != null){
-           // selectedUser = savedInstanceState.getParcelable("user_value")
-            nameField.setText(selectedUser.name)
-            isTrainerField.setChecked(selectedUser.isTrainer)
-            beltSpinner.setSelection(selectedUser.belt.ordinal, true)
+        if (savedInstanceState != null) {
+            selectedUser = savedInstanceState.getParcelable("user_value")
 
-
+            // Check if selectedUser is null before using it
+            selectedUser?.let { user ->
+                nameField.setText(user.name)
+                isTrainerField.isChecked = user.isTrainer
+                beltSpinner.setSelection(user.belt.ordinal, true)
+            }
         }
 
 
@@ -131,13 +133,13 @@ class trainerUserFragment : Fragment() {
     }
 
     private fun editStudent() {
-        selectedUser.name = nameField.text.toString()
-        selectedUser.isTrainer = isTrainerField.isChecked
-        selectedUser.belt = beltGrade.entries.toTypedArray()[beltSpinner.selectedItemPosition]
+        selectedUser?.name = nameField.text.toString()
+        selectedUser?.isTrainer = isTrainerField.isChecked
+        selectedUser?.belt = beltGrade.entries.toTypedArray()[beltSpinner.selectedItemPosition]
 
         CoroutineScope(Dispatchers.Main).launch {
-            val edited = uS.editUserByEmail(selectedUser)
-            if (edited) {
+            val edited = selectedUser?.let { uS.editUserByEmail(it) }
+            if (edited == true) {
                 Toast.makeText(requireContext(), "Successfully edited the user ${isTrainerField.isSelected}", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "Failed to edit the user", Toast.LENGTH_SHORT).show()

@@ -15,7 +15,7 @@
         <item name="android:checkboxStyle">@style/CustomCheckboxStyle</item>
 
         <item name="buttonStyle">@style/CustomButtonStyle</item>
-        <item name="android:spinnerDropDownItemStyle">@style/CustomSpinnerStyle</item>
+       <item name="android:spinnerDropDownItemStyle">@style/CustomSpinnerStyle</item>
 
 
 

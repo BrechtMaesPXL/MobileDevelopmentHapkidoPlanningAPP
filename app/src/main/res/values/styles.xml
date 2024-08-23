@@ -10,9 +10,9 @@
         <item name="android:height">25dp</item>
 
     </style>
-    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner.DropDown">
+    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
         <item name="android:background">@color/HapGray</item>
-
-
+<!--&lt;!&ndash;        <item name="android:paddingStart">8dp</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:paddingEnd">8dp</item>&ndash;&gt;-->
     </style>
 </resources>

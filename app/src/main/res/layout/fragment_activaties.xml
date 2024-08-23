@@ -57,7 +57,7 @@
         android:layout_width="409dp"
         android:layout_height="37dp"
         android:layout_marginBottom="4dp"
-        android:text="Event's:"
+        android:text="@string/event_s"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
