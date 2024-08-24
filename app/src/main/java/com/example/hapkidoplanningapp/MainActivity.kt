@@ -1,12 +1,27 @@
     package com.example.hapkidoplanningapp
 
-    import android.os.Bundle
+    import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.ContentValues.TAG
+import android.content.Context
+import android.os.Build
+import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.example.hapkidoplanningapp.db.LocalDataBase
 import com.example.hapkidoplanningapp.domain.User
+import com.example.hapkidoplanningapp.service.PermissionAsker
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
+
+    private const val CHANNEL_ID = "A1"
+    private const val CHANNEL_NAME = "Default Channel"
+    private const val CHANNEL_DESCRIPTION = "This is the default channel for notifications"
+
 
     class MainActivity : AppCompatActivity(), NavbarProvider, dbLocal, UserProvider {
 
@@ -21,8 +36,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
+            var permissionAsker = PermissionAsker(this)
 
-
+            permissionAsker.askNotificationPermission()
+            createNotificationChannel()
     //        setContentView(R.layout.activity_main)
 
             // Maak de database
@@ -32,6 +49,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
             ).fallbackToDestructiveMigration().build()
 
 
+            FirebaseMessaging.getInstance().subscribeToTopic("all_users")
+                .addOnCompleteListener { task: Task<Void?> ->
+                    var msg = "Subscribed to all_users topic"
+                    if (!task.isSuccessful) {
+                        msg = "Subscription failed"
+                    }
+                    Log.d(TAG, msg!!)
+                    Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
+                }
 
             setTheme(R.style.Theme_HapkidoPlanningApp)
 
@@ -115,6 +141,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
                 }
             }
         }
+        private fun createNotificationChannel() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+                val channel = NotificationChannel(
+                    CHANNEL_ID,
+                    CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT
+                ).apply {
+                    description = CHANNEL_DESCRIPTION
+                }
+
+                notificationManager.createNotificationChannel(channel)
+            }
+        }
+
+
 
 
     }
