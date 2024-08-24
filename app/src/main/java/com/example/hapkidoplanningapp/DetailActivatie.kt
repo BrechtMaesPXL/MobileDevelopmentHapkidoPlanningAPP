@@ -1,5 +1,6 @@
 package com.example.hapkidoplanningapp
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import java.util.Locale
 class DetailActivatie : Fragment() {
 
     private var activities: Activities? = null
+    private lateinit var uP: UserProvider
+    private var navbarProvider: NavbarProvider? = null
 
     companion object {
         // Key for the argument
@@ -48,6 +51,7 @@ class DetailActivatie : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navbarProvider?.getBottomNav()?.visibility = View.GONE
 
         // Set the text of TextViews with the data from the Activities object
         activities?.let {
@@ -55,8 +59,23 @@ class DetailActivatie : Fragment() {
             view.findViewById<TextView>(R.id.desciption).text = it.description
             view.findViewById<TextView>(R.id.Date).text = formatDate(it.dateActivities)
             view.findViewById<TextView>(R.id.place).text = it.place
-            view.findViewById<TextView>(R.id.attendees).text = it.attendees?.count().toString()
-            view.findViewById<TextView>(R.id.Trainer).text = "Trainer: ${it.trainer?.name},${it.trainer?.belt} "
+            if (uP.getUser()?.isTrainer == true){
+                if (it.attendees == null){
+                    view.findViewById<TextView>(R.id.attendees).text =
+                        getString(R.string.attendees_no_attending)
+                }else {
+                    val listOfAttendees: MutableList<String> = mutableListOf()
+                    for (attendens in it.attendees!!) {
+                        listOfAttendees.add("${attendens?.name} belt: ${attendens?.belt} ")
+                    }
+                    view.findViewById<TextView>(R.id.attendees).text = "Attendance: $listOfAttendees "
+                }
+            }else{
+                view.findViewById<TextView>(R.id.attendees).text =
+                    getString(R.string.attendees_number, it.attendees?.count().toString())
+            }
+            view.findViewById<TextView>(R.id.Trainer).text =
+                getString(R.string.trainer_name_belt, it.trainer?.name, it.trainer?.belt)
         }
     }
 
@@ -65,4 +84,14 @@ class DetailActivatie : Fragment() {
         val dateFormat = SimpleDateFormat("dd-MM-yy HH:mm", Locale.getDefault())
         return date?.let { dateFormat.format(it) } ?: ""
     }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is NavbarProvider) {
+            navbarProvider = context
+        }
+        if (context is UserProvider) {
+            uP = context
+        }
+    }
+
 }

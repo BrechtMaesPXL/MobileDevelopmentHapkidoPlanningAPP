@@ -36,4 +36,7 @@
     <string name="logout">logout</string>
     <string name="name_">Name:</string>
     <string name="belt_">Belt:</string>
+    <string name="attendees_no_attending">"Attendees: No attending "</string>
+    <string name="attendees_number">Attendees: %1$s</string>
+    <string name="trainer_name_belt">"Trainer: %1$s,%2$s "</string>
 </resources>

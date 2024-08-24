@@ -31,10 +31,11 @@ class fragment_add_activetie : Fragment() {
     private lateinit var aS: activatiesService
     private lateinit var uP: UserProvider
     private lateinit var timePicker: TimePicker
+    private  var clanderDate: Calendar = Calendar.getInstance()
+
 
     private var navbarProvider: NavbarProvider? = null
-    private var selectedDate: Long = Calendar.getInstance().timeInMillis // Initialize with the current date
-
+    private var selectedDate: Long = 0
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,38 +45,34 @@ class fragment_add_activetie : Fragment() {
         editTextDescription = view.findViewById(R.id.editTextTextMultiLine2)
         editTextPlace = view.findViewById(R.id.PlaceField)
         addButton = view.findViewById(R.id.button2)
-        calendarView = view.findViewById(R.id.calendar)
+        calendarView = view.findViewById(R.id.calendarSelect)
         timePicker = view.findViewById(R.id.timePicker)
         timePicker.setIs24HourView(true)
-        if (savedInstanceState != null) {
-            editTextTitle.setText(savedInstanceState.getString("title_value"))
-            editTextDescription.setText(savedInstanceState.getString("description_value"))
-            editTextPlace.setText(savedInstanceState.getString("place_value"))
 
-            timePicker.hour = savedInstanceState.getInt("timePicker_hour_value", 0)
-            timePicker.minute = savedInstanceState.getInt("timePicker_minute_value", 0)
-        }
         aS = activatiesService()
 
-        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val calendar = Calendar.getInstance()
-            calendar.set(year, month, dayOfMonth)
-            selectedDate = calendar.timeInMillis
-        }
+
 
         navbarProvider?.getBottomNav()?.visibility = View.GONE
+
+        calendarView.setOnDateChangeListener { calView: CalendarView, year: Int, month: Int, dayOfMonth: Int ->
+            clanderDate.set(year, month, dayOfMonth)
+            Log.e("SelectedDate", "${clanderDate.time}")
+        }
 
         addButton.setOnClickListener {
             val title = editTextTitle.text.toString()
             val description = editTextDescription.text.toString()
             val place = editTextPlace.text.toString()
 
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = calendarView.date
-            calendar.set(Calendar.HOUR_OF_DAY, timePicker.hour)
-            calendar.set(Calendar.MINUTE, timePicker.minute)
+            clanderDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+            clanderDate.set(Calendar.MINUTE, timePicker.minute)
 
-            val selectedDate = calendar.time
+
+
+
+            val selectedDate = clanderDate.time
+            Log.e("Notification", "Time: $selectedDate")
 
             aS.addActivaties(selectedDate, title, uP.getUser(), description, place)
 
@@ -155,7 +152,7 @@ class fragment_add_activetie : Fragment() {
         val notificationRequest = NotificationRequest(
             title = title,
             description = description,
-            date = date // Convert to timestamp or your preferred format
+            date = date
         )
 
         CoroutineScope(Dispatchers.IO).launch {

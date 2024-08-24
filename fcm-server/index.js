@@ -17,12 +17,12 @@ app.post('/sendNotification', (req, res) => {
 
     const message = {
         notification: {
-            title: title,
+            title: "New Event: "  + title,
             body: description + " on:" + date 
 
         },
         data: {
-            title: title,
+            title: "New Event: "  + title,
             body: description + " on:" + date 
         },
         topic: 'all_users' // Send to all instances subscribed to 'all_users'
